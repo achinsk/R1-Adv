@@ -1,36 +1,12 @@
-// Переменная lang может принимать 2 значения: 'ru' 'en'.
-const lang = prompt ("Переменная lang");
-const namePerson = prompt ("переменная namePerson");
+'use strict';
 
-const languageArray = {'ru': 'понедельник,вторник,среда,четверг,пятница,суббота,воскресенье', 
-                       'en': 'Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday'};
-
-
-if (lang == 'ru') {
-    console.log('понедельник,вторник,среда,четверг,пятница,суббота,воскресенье');
-} else {
-    console.log('Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday');
+function advancedFunction (param1) {
+    if (typeof(param1) === 'string') {
+        (param1.trim().length) > 30 ? console.log(param1.trim().slice(0,30) + '...') : console.log(param1.trim());
+    } else {
+        console.log("param is not a string");
+    }
 }
-
-switch(lang) {
-    case 'ru':
-        console.log('понедельник,вторник,среда,четверг,пятница,суббота,воскресенье');
-        break;
-    case 'en':
-        console.log('Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday');
-        break;
-}
-
-console.log(languageArray[lang]);
-
-
-if (namePerson == 'Артем') {
-    console.log('директор');
-} else if (namePerson == 'Александр') {
-    console.log('преподаватель');
-} else {
-    console.log('студент')
-}
-
-// Решить задачу с помощью нескольких тернарных операторов, без использования if или switch
-console.log (namePerson == 'Артем' ? 'директор' : (namePerson == 'Александр') ? 'преподаватель' : 'студент');
+//advancedFunction(" Объявить функцию");
+//advancedFunction(" Объявить функцию getServicePercentPrices.");
+//advancedFunction(5);
