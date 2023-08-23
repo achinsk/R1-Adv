@@ -1,5 +1,5 @@
-let num = 266219;
-let splitArrayNumber = [...num + ''].map(n => + n);
+const num = 266219;
+const splitArrayNumber = [...num + ''].map(n => + n);
 let product = 1;
 for (var i = 0; i < splitArrayNumber.length; i++) {
     product *= splitArrayNumber[i];
