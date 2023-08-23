@@ -1,9 +1,9 @@
-const num = 266219;
-const splitArrayNumber = [...num + ''].map(n => + n);
-let product = 1;
-for (var i = 0; i < splitArrayNumber.length; i++) {
-    product *= splitArrayNumber[i];
+// Переменная lang может принимать 2 значения: 'ru' 'en'.
+const lang = prompt ("Переменная lang");
+
+if (lang == 'ru') {
+    console.log('понедельник, вторник, среда, четверг, пятница, суббота, воскресенье');
+} else {
+    console.log('Sunday,Monday,Tuesday,Wednesday,THursday,Friday,Saturday');
 }
 
-console.log(product); 
-console.log((product ** 3).toString().slice(0,2));
