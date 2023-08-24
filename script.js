@@ -1,12 +1,16 @@
 'use strict';
 
-function advancedFunction (param1) {
-    if (typeof(param1) === 'string') {
-        (param1.trim().length) > 30 ? console.log(param1.trim().slice(0,30) + '...') : console.log(param1.trim());
-    } else {
-        console.log("param is not a string");
-    }
+let screenPrice;
+
+const isNumber = function (num) {    
+    return !isNaN(parseFloat(num)) && isFinite(num);
 }
-//advancedFunction(" Объявить функцию");
-//advancedFunction(" Объявить функцию getServicePercentPrices.");
-//advancedFunction(5);
+const asking = function () {
+    do {
+        screenPrice = prompt("Сколько будет стоить данная работа?");
+    } while (!isNumber(screenPrice));
+    // способ сохранять в переменную ответ пользователя после проверки на число именно как число при любом вводе
+    screenPrice = parseFloat(screenPrice);
+}
+
+asking();
