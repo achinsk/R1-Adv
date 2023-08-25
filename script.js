@@ -50,9 +50,10 @@ function mainGame() {
         engine();
     }
 
-    do {
-        start(getRandomInt(100));
-    } while (gameAgain);    
+    start(getRandomInt(100));
+    if (gameAgain) {
+        mainGame();
+    }   
 }
 
 mainGame();
