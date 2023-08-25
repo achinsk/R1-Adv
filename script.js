@@ -1,59 +1,17 @@
 'use strict';
 
-function mainGame() {
+const week = ['понедельник','вторник','среда','четверг','пятница','суббота','воскресенье'];
+const weekend = ['суббота','воскресенье'];
 
-    let gameAgain;
-    
-    function getRandomInt(max) {
-        return (1 + Math.floor(Math.random() * max));
-    }    
+// Вывести на экран все дни недели
+console.log(week);
 
-    function start(x) {
-        console.log(x); // to know what is the number
-        let a;
-        let promptMessage = "Угадай число от 1 до 100";
-        let count = 10;
-        
-        const isNumber = function (num) {    
-            return !isNaN(parseFloat(num)) && isFinite(num);
-        }
+// Каждый из них с новой строчки
+week.forEach((item) => console.log(item));
 
-        function engine() {
-            a = prompt(promptMessage);
+// Выходные дни - курсивом
+week.forEach((item) => weekend.includes(item) ? console.log(`%c${item}`, 'font-style: italic;') : console.log(item));
 
-            if (a == null) {
-                alert("Игра окончена");
-                gameAgain = false;
-            } else if (!isNumber(a)) {
-                promptMessage = "Введи число!";
-                engine();
-            } else if (x !== parseFloat(a) && count == 1) {
-                if (confirm("Попытки закончились, хотите сыграть еще?")) {
-                    gameAgain = true;
-                } else {
-                    gameAgain = false;
-                }
-            } else if (x !== parseFloat(a)) {
-                count -= 1;
-                promptMessage = (x > parseFloat(a)) ? 
-                `Загаданное число больше, осталось попыток ${count}, предлагаю ввести новый вариант` : 
-                `Загаданное число меньше, осталось попыток ${count}, предлагаю ввести новый вариант`;
-                engine();
-            } else {
-                if (confirm("Поздравляю, Вы угадали!!! Хотели бы сыграть еще?")) {
-                    gameAgain = true;
-                } else {
-                    gameAgain = false;
-                }
-            }
-        }
-        engine();
-    }
-
-    start(getRandomInt(100));
-    if (gameAgain) {
-        mainGame();
-    }   
-}
-
-mainGame();
+// Текущий день - жирным шрифтом(использовать объект даты)
+let today = new Date().toLocaleDateString('ru-RU',{weekday: 'long'}, {timeZone: "Europe/Moscow"});
+week.forEach((item) => (item === today) ? console.log(`%c${item}`, 'font-weight: bold;') : console.log(item));
