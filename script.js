@@ -1,16 +1,25 @@
 'use strict';
 
-let screenPrice;
+let arr = ['453','233','756','5463','4','99','2'];
+const result = arr.filter((element) => element.charAt(0) == '2' || element.charAt(0) == '4');
+console.log(result);
 
-const isNumber = function (num) {    
-    return !isNaN(parseFloat(num)) && isFinite(num);
-}
-const asking = function () {
+// Finding A prime number which is a whole number greater than 1 whose only factors are 1 and itself.
+let count; 
+
+for (let i = 1; i <= 100; i++) {
+    if (i == 1) {continue;}
+    count = 1;
+    
     do {
-        screenPrice = prompt("Сколько будет стоить данная работа?");
-    } while (!isNumber(screenPrice));
-    // способ сохранять в переменную ответ пользователя после проверки на число именно как число при любом вводе
-    screenPrice = parseFloat(screenPrice);
-}
+        count++;
 
-asking();
+        if (i % count == 0) {
+            if (count !== i) {
+                break;
+            } else {
+                console.log(`${i}: Делители этого числа: 1 и ${i}`);
+            }
+        }
+    } while ( count < i );
+}
