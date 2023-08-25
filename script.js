@@ -1,25 +1,58 @@
 'use strict';
 
-let arr = ['453','233','756','5463','4','99','2'];
-const result = arr.filter((element) => element.charAt(0) == '2' || element.charAt(0) == '4');
-console.log(result);
+function mainGame() {
 
-// Finding A prime number which is a whole number greater than 1 whose only factors are 1 and itself.
-let count; 
-
-for (let i = 1; i <= 100; i++) {
-    if (i == 1) {continue;}
-    count = 1;
+    let gameAgain;
     
-    do {
-        count++;
+    function getRandomInt(max) {
+        return (1 + Math.floor(Math.random() * max));
+    }    
 
-        if (i % count == 0) {
-            if (count !== i) {
-                break;
+    function start(x) {
+        console.log(x); // to know what is the number
+        let a;
+        let promptMessage = "Угадай число от 1 до 100";
+        let count = 10;
+        
+        const isNumber = function (num) {    
+            return !isNaN(parseFloat(num)) && isFinite(num);
+        }
+
+        function engine() {
+            a = prompt(promptMessage);
+
+            if (a == null) {
+                alert("Игра окончена");
+                gameAgain = false;
+            } else if (!isNumber(a)) {
+                promptMessage = "Введи число!";
+                engine();
+            } else if (x !== parseFloat(a) && count == 1) {
+                if (confirm("Попытки закончились, хотите сыграть еще?")) {
+                    gameAgain = true;
+                } else {
+                    gameAgain = false;
+                }
+            } else if (x !== parseFloat(a)) {
+                count -= 1;
+                promptMessage = (x > parseFloat(a)) ? 
+                `Загаданное число больше, осталось попыток ${count}, предлагаю ввести новый вариант` : 
+                `Загаданное число меньше, осталось попыток ${count}, предлагаю ввести новый вариант`;
+                engine();
             } else {
-                console.log(`${i}: Делители этого числа: 1 и ${i}`);
+                if (confirm("Поздравляю, Вы угадали!!! Хотели бы сыграть еще?")) {
+                    gameAgain = true;
+                } else {
+                    gameAgain = false;
+                }
             }
         }
-    } while ( count < i );
+        engine();
+    }
+
+    do {
+        start(getRandomInt(100));
+    } while (gameAgain);    
 }
+
+mainGame();
