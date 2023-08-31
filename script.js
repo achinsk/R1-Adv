@@ -1,122 +1,80 @@
 'use strict';
+ 
+let today;
 
-const appData = {
-    title: '',
-    screens: [], 
-    screenPrice: 0, 
-    adaptive: true,
-    rollback: 10,
-    allServicePrices: 0,
-    fullPrice: 0,
-    servicePercentPrice: 0,
-    additionalServices: {},
-
-    asking: function () {
-        do {          
-            appData.title = prompt("Как называется ваш проект?");
-        } while (!appData.isProperString(appData.title));
+const outputForB = function () {
+    // it is already returned me with proper 0. But if not - solution is commented below with removing 0 and adding it back  
+    return ((today.toLocaleString('ru-RU',{timeZone: "Europe/Moscow"})).replace(", ", " - "));
               
-        for (let i = 0; i < 2; i++) {
-            let name = '';
-            let x = 0;
-
-            do {          
-                name = prompt("Какие типы экранов нужно разработать?");
-            } while (!appData.isProperString(name));           
-           
-            do {
-                x = prompt("Сколько будет стоить данная работа?");
-            } while (!appData.isNumber(x));
-            appData.screens.push({id: i, name: name, price: parseFloat(x)});
-        }
-
-        for (let i = 0; i < 2; i++) {
-            let name = '';
-            let x = 0;
-
-            do {          
-                name = prompt("Какой дополнительный тип услуги нужен?");
-            } while (!appData.isProperString(name));            
-
-            do {
-                x = prompt("Сколько это будет стоить?");
-            } while (!appData.isNumber(x));
-
-            // done by simply concat name to id. Dash is needed to make it unique, otherwise for example:
-            // "name1" + 1  is equal to "name" + 11
-            // could also be done like Object of Objects {{},{}....} or Object of keys with Array {1: [name, key], ...} 
-            appData.additionalServices[(name + "-" + i)] = parseFloat(x);                          
-        }
-            
-        appData.adaptive = (prompt("Нужен ли адаптив на сайте?") == "true" ? true: false);       
-    },
-
-    addPrices: function() {
-        appData.screenPrice = appData.screens.reduce((total, num) => {return total + num.price}, 0);
-
-        for (let key in appData.additionalServices) {
-            appData.allServicePrices += appData.additionalServices[key];
-        }
-    },
-
-    // Answer prompt string is also checked for null, empty and all spaces as invalid
-    isProperString: function(prompt_string) {
-        if (prompt_string == null) {
-            return false;
-        } else if (prompt_string == "") {
-            return false;
-        } else if (prompt_string.trim().length == 0) {
-            return false;
-        } else {            
-            return !(!isNaN(parseFloat(prompt_string)) && isFinite(prompt_string));
-        }
-    },
-
-    isNumber: function (num) {    
-        return !isNaN(parseFloat(num)) && isFinite(num);
-    },
-
-    getFullPrice: function () {
-        appData.fullPrice = (appData.screenPrice + appData.allServicePrices);
-    },
+    // let myDate1 = today.toLocaleDateString('ru-RU',{timeZone: "Europe/Moscow"});
+    // myDate1.split(".")
+    //         .map(Number)
+    //         .map((x) => (x < 10) ? x = "0" + x.toString() : x.toString())
+    //         .join(".");
     
-    getTitle: function () {
-        appData.title = ((appData.title.trim())[0].toUpperCase() + (appData.title.trim().slice(1).toLowerCase()));
-    },
-    
-    getServicePercentPrices: function () {
-        appData.servicePercentPrice = (Math.ceil(appData.fullPrice - (appData.fullPrice * (appData.rollback/100))));
-    },
-    
-    getRollbackMessage: function (price) {
-        if (price >= 30000) {
-            return ("Даем скидку в 10%");
-        } else if (price >=15000 && price < 30000) {
-            return ("Даем скидку в 5%");
-        } else if (price >= 0) {
-            return ("Скидка не предусмотрена");
-        } else {
-            return ("Что то пошло не так");
-        }
-    },
+    // let myDate2 = today.toLocaleTimeString('ru-RU',{timeZone: "Europe/Moscow"})
+    // myDate2.split(":")
+    //         .map(Number)
+    //         .map((x) => (x < 10) ? x = "0" + x.toString() : x.toString())
+    //         .join(":");
 
-    logger: function() {
-        console.log(appData.allServicePrices);
-        console.log(appData.screenPrice);
-        console.log(appData.screens);
-        console.log(appData.getRollbackMessage(appData.fullPrice));
-        console.log(appData.servicePercentPrice);
-    },
-
-    start: function() {
-        appData.asking();
-        appData.addPrices();
-        appData.getFullPrice();
-        appData.getServicePercentPrices();
-        appData.getTitle();
-        appData.logger();
-    }
-
+    // return (`${myDate1} - ${myDate2}`);
 }
 
-appData.start();
+const outputForA = function () {
+    today = new Date();
+    const monthArray = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+    let part1 = 'Сегодня';
+    let part2 = (today.toLocaleDateString('ru-RU',{weekday: 'long'}, {timeZone: "Europe/Moscow"})).charAt(0).toUpperCase() + 
+                (today.toLocaleDateString('ru-RU',{weekday: 'long'}, {timeZone: "Europe/Moscow"})).slice(1);
+    let part3 = today.toLocaleString('ru-RU',{day: 'numeric'},{timeZone: "Europe/Moscow"});
+    let part4 = monthArray[(today.toLocaleString('ru-RU',{month: 'numeric'},{timeZone: "Europe/Moscow"}))];
+    let part5 = today.toLocaleString('ru-RU',{year: 'numeric'},{timeZone: "Europe/Moscow"});
+    let part6 = 'года,';
+    let part7 = parseInt(today.toLocaleTimeString('ru-RU',{hour: 'numeric', timeZone: "Europe/Moscow"}));
+    let part8 = '';
+    let part9 = (today.toLocaleTimeString('ru-RU',{minute: 'numeric', timeZone: "Europe/Moscow"}));
+    let part9_tmp = part9.slice(-1);
+    let part10 = '';
+    let part11 = (today.toLocaleTimeString('ru-RU',{second: 'numeric', timeZone: "Europe/Moscow"}));
+    let part11_tmp = part11.slice(-1);
+    let part12 = '';
+
+    if (part7 === 1 || part7 === 21) {
+        part8 = 'час';  
+    } else if (part7 === 2 || part7 === 3 || part7 === 4 || part7 === 24) {
+        part8 = 'часа';
+    } else {
+        part8 = 'часов';
+    }
+
+    if (parseInt(part9) >=11 && parseInt(part9) <= 19) {
+        part10 = 'минут';
+    } else if (part9_tmp === '1') {
+        part10 = 'минута';
+    } else if (part9_tmp === '2' || part9_tmp === '3' || part9_tmp === '4') {
+        part10 = 'минуты';
+    } else {
+        part10 = 'минут';
+    }
+
+    if (parseInt(part11) >=11 && parseInt(part11) <= 19) {
+        part12 = 'секунд';
+    } else if (part11_tmp === '1') {
+        part12 = 'секунда';
+    } else if (part11_tmp === '2' || part11_tmp === '3' || part11_tmp === '4') {
+        part12 = 'секунды';
+    } else {
+        part12 = 'секунд';
+    }
+
+    return (`${part1} ${part2}, ${part3} ${part4} ${part5} ${part6} ${part7} ${part8} ${part9} ${part10} ${part11} ${part12}`);
+}
+
+const printTime = function () {
+    today = new Date();
+    console.log(outputForA());
+    console.log(outputForB());
+}
+
+setInterval(printTime, 1000);
